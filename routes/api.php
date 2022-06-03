@@ -243,6 +243,7 @@ Route::post('count', function (Request $request) {
             ->select("events.cal_id", DB::raw("count(events.id) as CountEvents"))
             ->whereMonth('events.date_debut', '=',  $date->format('m'))
             ->whereYear('events.date_debut', '=',  $date->format('Y'))
+             ->where('events.user_id', '=',  $request->user_id)
             ->groupBy('events.cal_id')->get();
         return  response()->json(
             $users,
